@@ -1,18 +1,32 @@
 import React from 'react';
-import './App.css'; 
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import Login from './SignIn/Login';
+import './App.css';
 
-function Login() {
-  return (
-    <div className="login-container">
-      <h2>Connexion</h2>
-      <form>
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Mot de passe" required />
-        <button type="submit">Se connecter</button>
-      </form>
-      <p>Pas de compte ? <a href="/signup">Créer un compte</a></p>
-    </div>
-  );
+function Home() {
+    const navigate = useNavigate();
+
+    const handleNavigateToLogin = () => {
+        navigate('/login');
+    };
+
+    return (
+        <div className="app-container">
+            <h1>Vous avez un compte</h1>
+            <button className="login-button" onClick={handleNavigateToLogin}>Connecter</button>
+        </div>
+    );
 }
 
-export default Login;
+function App() {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+            </Routes>
+        </Router>
+    );
+}
+
+export default App;
